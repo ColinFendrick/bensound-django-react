@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from .models import Song
+from .serializers import SongSerializer
+from rest_framework import generics
 
-# Create your views here.
+class SongListCreate(generics.ListCreateAPIView):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
