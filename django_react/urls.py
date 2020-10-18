@@ -17,4 +17,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('songs.urls')),
+    path('', include('frontend.urls')),
 ]
