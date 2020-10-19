@@ -22,6 +22,10 @@ const TrackList = () => {
 							Edit
 						</button>
 					</div>
+					{track.description && <p>
+						<strong>Description: </strong>
+						<small>{track.description}</small>
+					</p>}
 				</div>
 			))}
 			{retrieveError && retrieveError}

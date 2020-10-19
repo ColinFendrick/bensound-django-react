@@ -19,7 +19,7 @@ const ModalComponent = () => {
 	const { toggleModal, modal, idUnderRevision } = useUI();
 	const [hasLoaded, setHasLoaded] = useState(false);
 	const [songToEdit, updateSongToEdit] = useState({
-		name: ''
+		name: '', description: ''
 	});
 
 	const [submittedResponse, setSubmittedResponse] = useState('');
@@ -39,6 +39,7 @@ const ModalComponent = () => {
 
 	const methodSong = method => async () => {
 		setHasLoaded(false);
+		console.log(songToEdit);
 		const message = await songMethod(method)(songToEdit);
 		updateSongToEdit({});
 		setHasLoaded(true);
@@ -63,6 +64,17 @@ const ModalComponent = () => {
 										value={songToEdit.name}
 										onChange={handleChange}
 										placeholder='Song Name'
+									/>
+								</FormGroup>
+
+								<FormGroup>
+									<Label for='description'>Description</Label>
+									<Input
+										type='text'
+										name='description'
+										value={songToEdit.description}
+										onChange={handleChange}
+										placeholder='Enter song description'
 									/>
 								</FormGroup>
 
