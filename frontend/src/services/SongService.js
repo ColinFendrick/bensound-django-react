@@ -2,7 +2,7 @@ import http from '../http-common';
 
 const getAll = () => http.get('/songs');
 
-const get = data => http.get(`/songs/${data.id}/`);
+const get = id => http.get(`/songs/${id}/`);
 
 const addSong = data => http.post('/songs/', data);
 

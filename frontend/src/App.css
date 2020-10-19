@@ -23,3 +23,9 @@
     transform: translate(-100%, 0);
   }
 }
+
+.song-title {
+  display: flex;
+  justify-content: space-between;
+  width: 25%;
+}

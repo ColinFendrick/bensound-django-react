@@ -30,5 +30,6 @@ backend/backend/environment.py
 .coverage
 
 **/*.mp3
+**/db.*
 
 

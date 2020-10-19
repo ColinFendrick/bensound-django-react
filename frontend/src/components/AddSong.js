@@ -6,7 +6,9 @@ const AddSong = () => {
 	const [song, setSong] = useState({ name: '', songFile: null });
 	const [submitted, setSubmitted] = useState(false);
 	const [submittedResponse, setSubmittedResponse] = useState('');
-	const { addSong } = useMusicPlayer();
+	const { songMethod } = useMusicPlayer();
+
+	const addSong = songMethod('addSong');
 
 	const handleInputChange = event => {
 		const {

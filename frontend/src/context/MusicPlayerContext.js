@@ -25,7 +25,9 @@ const MusicPlayerProvider = props => {
 		currentTrackIndex: null,
 		isPlaying: false,
 		retrieveError: '',
-		retrieveSongs
+		retrieveSongs,
+		modal: false,
+		idUnderRevision: null
 	});
 
 	return (

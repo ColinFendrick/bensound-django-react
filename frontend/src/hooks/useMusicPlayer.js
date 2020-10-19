@@ -10,13 +10,8 @@ const useMusicPlayer = () => {
 		if (ix === state.currentTrackIndex) {
 			togglePlay();
 		} else {
-
 			state.audioPlayer.pause();
 			state.audioPlayer = new Audio(state.tracks[ix].songFile);
-			console.log(state.tracks[ix].songFile);
-			// state.audioPlayer = new Audio(state.tracks[ix].songFile.replace('http://localhost:8000/', '../../../backend/'));
-			// console.log(state.tracks[ix].songFile.replace('http://localhost:8000/', '../../../backend/'));
-			// state.audioPlayer = new Audio(transformedTrackList[ix].songFile);
 			state.audioPlayer.play();
 			setState(state => ({ ...state, currentTrackIndex: ix, isPlaying: true }));
 		}
@@ -41,18 +36,21 @@ const useMusicPlayer = () => {
 		playTrack(newIndex);
 	};
 
-	const addSong = async data => {
+	const songMethod = method => async data => {
 		try {
-			const res = await SongDataService.addSong(data);
+			const res = await SongDataService[method](data);
 			state.retrieveSongs();
-			return ({ response: { statusText: `${res.data.name} added correctly` }});
+			return ({
+				response: { statusText: `${res.data.name || ''} ${method.replace('Song', '')} ran correctly correctly` },
+				serverResponse: res || null
+			});
 		} catch (e) {
-			return e.response.statusText;
+			return e;
 		}
 	};
 
 	return {
-		addSong,
+		songMethod,
 		playTrack,
 		togglePlay,
 		currentTrackName: state.currentTrackIndex !== null && state.tracks[state.currentTrackIndex]?.name,
