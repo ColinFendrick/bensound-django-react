@@ -25,4 +25,10 @@ yarn-debug.log*
 yarn-error.log*
 **/.env
 **/__pycache__
+backend/backend/environment.py
+
 .coverage
+
+**/*.mp3
+
+

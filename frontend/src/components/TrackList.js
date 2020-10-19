@@ -5,7 +5,7 @@ import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
 const TrackList = () => {
-	const { trackList, currentTrackName, playTrack, isPlaying } = useMusicPlayer();
+	const { trackList, currentTrackName, playTrack, isPlaying, retrieveError } = useMusicPlayer();
 
 	return (
 		<>
@@ -19,6 +19,7 @@ const TrackList = () => {
 					</div>
 				</div>
 			))}
+			{retrieveError && retrieveError}
 		</>
 	);
 };

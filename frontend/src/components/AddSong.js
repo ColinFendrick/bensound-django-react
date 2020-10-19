@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
 const AddSong = () => {
-	const [song, setSong] = useState({ name: '' });
+	const [song, setSong] = useState({ name: '', songFile: null });
 	const [submitted, setSubmitted] = useState(false);
+	const [submittedResponse, setSubmittedResponse] = useState('');
 	const { addSong } = useMusicPlayer();
 
 	const handleInputChange = event => {
@@ -16,15 +17,22 @@ const AddSong = () => {
 		setSong({ ...song, [name]: value });
 	};
 
+	const handleFileChange = event => setSong({ ...song, songFile: event.target.files[0] });
 
 	const newSong = () => {
-		setSong({ name: '' });
+		setSong({ name: '', songFile: null });
 		setSubmitted(false);
 	};
 
-	const saveSong = () => {
-		addSong(song);
-		setSong({ name: '' });
+	const saveSong = async () => {
+		const formData = new FormData();
+
+		formData.append('name', song.name);
+		formData.append('songFile', song.songFile);
+
+		const message = await addSong(formData);
+		setSong({ name: '', songFile: null });
+		setSubmittedResponse(message.response.statusText);
 		setSubmitted(true);
 	};
 
@@ -32,7 +40,7 @@ const AddSong = () => {
 		<div className='submit-form'>
 			{submitted ? (
 				<div>
-					<h4>You submitted successfully!</h4>
+					<h4>{submittedResponse}</h4>
 					<button className='btn btn-success' onClick={newSong}>
             Add
 					</button>
@@ -45,10 +53,24 @@ const AddSong = () => {
 							type='text'
 							className='form-control'
 							id='name'
+							name='name'
 							required
 							value={song.name}
 							onChange={handleInputChange}
-							name='name'
+						/>
+					</div>
+
+					<div className='form-group'>
+						<label htmlFor='title'>File</label>
+						<input
+							type='file'
+							className='form-control'
+							id='song-file'
+							name='song-file'
+							accept='.mp3'
+							required
+							value={song.file}
+							onChange={handleFileChange}
 						/>
 					</div>
 

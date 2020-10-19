@@ -8,5 +8,6 @@ router.register(r'songs', views.SongView, 'song')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('media/<path:path>', views.serve_song),
 ]

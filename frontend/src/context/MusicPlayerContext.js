@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import ANewBeginning from '../assets/bensound-anewbeginning.mp3';
-import Ukelele from '../assets/bensound-ukulele.mp3';
-import CreativeMinds from '../assets/bensound-creativeminds.mp3';
+import React, { useState, useEffect, useCallback } from 'react';
+
+import SongDataService from '../services/SongService';
 
 const MusicPlayerContext = React.createContext([{}, () => {}]);
 
 const MusicPlayerProvider = props => {
 
+	const retrieveSongs = useCallback(() => {
+		(async () => {
+			try {
+				const response = await SongDataService.getAll();
+				setState(state => ({ ...state, tracks: response.data, retrieveError: '' }));
+			} catch (e) {
+				setState(state => ({ ...state, retrieveError: e.response.statusText }));
+			}
+		})();
+	}, []);
+
+	useEffect(() => retrieveSongs(), [retrieveSongs]);
+
 	const [state, setState] = useState({
 		audioPlayer: new Audio(),
-		tracks: [
-			{
-				name: 'Ukelele',
-				file: Ukelele
-			},
-			{
-				name: 'Creative Minds',
-				file: CreativeMinds
-			},
-			{
-				name: 'A New Beginning',
-				file: ANewBeginning
-			}
-		],
+		tracks: [],
 		currentTrackIndex: null,
-		isPlaying: false
+		isPlaying: false,
+		retrieveError: '',
+		retrieveSongs
 	});
+
 	return (
 		<MusicPlayerContext.Provider value={[state, setState]}>
 			{props.children}
