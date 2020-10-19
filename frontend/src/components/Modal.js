@@ -8,7 +8,8 @@ import {
 	Form,
 	FormGroup,
 	Input,
-	Label
+	Label,
+	Spinner
 } from 'reactstrap';
 
 import useUI from '../hooks/useUI';
@@ -50,9 +51,7 @@ const ModalComponent = () => {
 		<Modal isOpen={modal} toggle={() => toggleModal(null)}>
 			<ModalHeader toggle={toggleModal}> Edit Song </ModalHeader>
 			{submittedResponse && hasLoaded ? <h4>{submittedResponse}</h4>
-				: !hasLoaded ? <>
-          Not loaded yet
-				</> :
+				: !hasLoaded ? <Spinner animation="border" />  :
 					<>
 						<ModalBody>
 							<Form>

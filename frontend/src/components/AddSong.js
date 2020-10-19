@@ -26,10 +26,6 @@ const AddSong = () => {
 		formData.append('description', song.description);
 		formData.append('songFile', song.songFile);
 
-		for (var pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1]);
-		}
-
 		const message = await songMethod('addSong')(formData);
 		setSong(initialState);
 		setSubmittedResponse(message.response.statusText);

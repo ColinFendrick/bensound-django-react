@@ -3,7 +3,14 @@ import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
 import useUI from '../hooks/useUI';
-import { Home, TrackList, Modal, PlayerControls, AddSong } from '../components';
+import {
+	Home,
+	TrackList,
+	Modal,
+	SongList,
+	PlayerControls,
+	AddSong
+} from '../components';
 
 
 const Player = () => (
@@ -39,6 +46,12 @@ const Container = () => {
 							</Link>
 						</li>
 
+						<li className = 'nav-item'>
+							<Link to = {'/bensound'} className = 'nav-link'>
+									Song List from BenSounds
+							</Link>
+						</li>
+
 					</div>
 				</nav>
 			</div>
@@ -48,6 +61,7 @@ const Container = () => {
 					<Route exact path='/' component={Home} />
 					<Route path='/musicplayer' component={Player} />
 					<Route path='/addsong' component={AddSong} />
+					<Route path='/bensound' component={SongList} />
 				</Switch>
 			</div>
 
