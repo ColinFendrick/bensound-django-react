@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 import useUI from '../hooks/useUI';
-import { pipe } from '../helpers';
 
 import { EditSongModal } from './modals';
 
