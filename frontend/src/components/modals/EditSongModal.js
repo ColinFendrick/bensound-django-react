@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
 	Button,
-	Modal,
 	ModalHeader,
 	ModalBody,
 	ModalFooter,
@@ -12,12 +11,12 @@ import {
 	Spinner
 } from 'reactstrap';
 
-import useUI from '../hooks/useUI';
-import useMusicPlayer from '../hooks/useMusicPlayer';
+import useUI from '../../hooks/useUI';
+import useMusicPlayer from '../../hooks/useMusicPlayer';
 
-const ModalComponent = () => {
+const EditSongModal = () => {
 	const { songMethod } = useMusicPlayer();
-	const { toggleModal, modal, idUnderRevision } = useUI();
+	const { toggleModal, idUnderRevision } = useUI();
 	const [hasLoaded, setHasLoaded] = useState(false);
 	const [songToEdit, updateSongToEdit] = useState({
 		name: '', description: '', id: null
@@ -27,15 +26,18 @@ const ModalComponent = () => {
 	const handleChange = e =>
 		updateSongToEdit({ ...songToEdit, [e.target.name]: e.target.value });
 
-
 	useEffect(() => {
 		(async () => {
 			setHasLoaded(false);
-			const res = await songMethod('get')(idUnderRevision);
-
-			setHasLoaded(true);
-			const { name, description, id } = res.serverResponse.data;
-			updateSongToEdit({ name, description, id });
+			try {
+				const res = await songMethod('get')(idUnderRevision);
+				setHasLoaded(true);
+				const { name, description, id } = res?.serverResponse?.data;
+				updateSongToEdit({ name, description, id });
+			} catch (e) {
+				setHasLoaded(true);
+				setSubmittedResponse('Failed to load song, please try again');
+			}
 		})();
 	}, [idUnderRevision]);
 
@@ -48,8 +50,8 @@ const ModalComponent = () => {
 	};
 
 	return (
-		<Modal isOpen={modal} toggle={() => toggleModal(null)}>
-			<ModalHeader toggle={toggleModal}> Edit Song </ModalHeader>
+		<>
+			<ModalHeader toggle={() => toggleModal(null)()}> Edit Song </ModalHeader>
 			{submittedResponse && hasLoaded ? <h4>{submittedResponse}</h4>
 				: !hasLoaded ? <Spinner animation="border" />  :
 					<>
@@ -81,16 +83,17 @@ const ModalComponent = () => {
 						</ModalBody>
 						<ModalFooter>
 							<Button color='success' onClick={() => methodSong('updateSong')(songToEdit)}>
-              Save
+								Save
 							</Button>
 
 							<Button color='danger' onClick={() => methodSong('deleteSong')(songToEdit)}>
-              Delete
+								Delete
 							</Button>
 						</ModalFooter>
-					</>}
-		</Modal>
+					</>
+			}
+		</>
 	);
 };
 
-export default ModalComponent;
+export default EditSongModal;

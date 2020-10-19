@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 import useUI from '../hooks/useUI';
+import { pipe } from '../helpers';
+
+import { EditSongModal } from './modals';
 
 const TrackList = () => {
 	const { trackList, currentTrackName, playTrack, isPlaying, retrieveError } = useMusicPlayer();
@@ -18,7 +21,7 @@ const TrackList = () => {
 					</button>
 					<div className='song-title'>
 						{track.name}
-						<button className='badge badge-warning' onClick={() => toggleModal(track.id)}>
+						<button className='badge badge-warning' onClick={() => toggleModal(<EditSongModal />)({ idUnderRevision: track.id })}>
 							Edit
 						</button>
 					</div>

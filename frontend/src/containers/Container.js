@@ -6,12 +6,11 @@ import useUI from '../hooks/useUI';
 import {
 	Home,
 	TrackList,
-	Modal,
 	SongList,
 	PlayerControls,
 	AddSong
 } from '../components';
-
+import { ModalContainer } from './index.js';
 
 const Player = () => (
 	<div className='container'>
@@ -21,7 +20,7 @@ const Player = () => (
 );
 
 const Container = () => {
-	const { modal } = useUI();
+	const { modalChildren } = useUI();
 
 	return (
 		<>
@@ -65,7 +64,11 @@ const Container = () => {
 				</Switch>
 			</div>
 
-			{modal ? <Modal /> : null}
+			{modalChildren ? (
+				<ModalContainer>
+					{modalChildren}
+				</ModalContainer>
+			) : null}
 		</>
 	);
 };

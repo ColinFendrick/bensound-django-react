@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { MusicPlayerProvider } from './context/MusicPlayerContext';
 
-import Container from './containers/Container';
+import { Container } from './containers';
 
 const App = () => (
 	<MusicPlayerProvider>

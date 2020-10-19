@@ -10,5 +10,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('media/<path:path>', views.serve_song),
-    path('bensounds/', views.ben_sounds)
+    path('bensounds/', views.get_all_bensounds),
+    path('bensounds/<slug:slug>', views.get_single_bensounds)
 ]

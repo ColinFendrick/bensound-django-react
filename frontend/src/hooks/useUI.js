@@ -4,18 +4,22 @@ import { MusicPlayerContext } from '../context/MusicPlayerContext';
 const useUI = () => {
 	const [state, setState] = useContext(MusicPlayerContext);
 
-	const toggleModal = ix => {
+	const toggleModal = (children = null) => stateArgs => {
 		if (state.isPlaying) {
 			state.audioPlayer.pause();
 		}
 
-		setState({ ...state, modal: !state.modal, idUnderRevision: ix });
+		setState({
+			...state,
+			modalChildren: children,
+			...stateArgs
+		});
 	};
 
 	return {
 		toggleModal,
-		modal: state.modal,
-		idUnderRevision: state.idUnderRevision
+		idUnderRevision: state.idUnderRevision,
+		modalChildren: state.modalChildren
 	};
 };
 
