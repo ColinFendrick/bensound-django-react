@@ -6,7 +6,7 @@ const get = id => http.get(`/songs/${id}/`);
 
 const addSong = data => http.post('/songs/', data);
 
-const updateSong = data => http.put(`/songs/${data.id}`, data);
+const updateSong = data => http.patch(`/songs/${data.id}/`, data);
 
 const deleteSong = data => http.delete(`/songs/${data.id}`);
 

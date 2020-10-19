@@ -31,5 +31,6 @@ backend/backend/environment.py
 
 **/*.mp3
 **/db.*
+**/migrations/
 
 

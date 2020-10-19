@@ -19,31 +19,31 @@ const ModalComponent = () => {
 	const { toggleModal, modal, idUnderRevision } = useUI();
 	const [hasLoaded, setHasLoaded] = useState(false);
 	const [songToEdit, updateSongToEdit] = useState({
-		name: '', description: ''
+		name: '', description: '', id: null
 	});
-
 	const [submittedResponse, setSubmittedResponse] = useState('');
 
 	const handleChange = e =>
-		updateSongToEdit({ ...songToEdit, name: e.target.value });
+		updateSongToEdit({ ...songToEdit, [e.target.name]: e.target.value });
 
 
 	useEffect(() => {
 		(async () => {
 			setHasLoaded(false);
 			const res = await songMethod('get')(idUnderRevision);
+
 			setHasLoaded(true);
-			updateSongToEdit(res.serverResponse.data);
+			const { name, description, id } = res.serverResponse.data;
+			updateSongToEdit({ name, description, id });
 		})();
 	}, [idUnderRevision]);
 
 	const methodSong = method => async () => {
 		setHasLoaded(false);
-		console.log(songToEdit);
-		const message = await songMethod(method)(songToEdit);
+		const result = await songMethod(method)(songToEdit);
 		updateSongToEdit({});
 		setHasLoaded(true);
-		setSubmittedResponse(message.response.statusText);
+		setSubmittedResponse(result.response.statusText);
 	};
 
 	return (
@@ -81,11 +81,11 @@ const ModalComponent = () => {
 							</Form>
 						</ModalBody>
 						<ModalFooter>
-							<Button color='success' onClick={() => methodSong('updateSong')()}>
+							<Button color='success' onClick={() => methodSong('updateSong')(songToEdit)}>
               Save
 							</Button>
 
-							<Button color='danger' onClick={() => methodSong('deleteSong')()}>
+							<Button color='danger' onClick={() => methodSong('deleteSong')(songToEdit)}>
               Delete
 							</Button>
 						</ModalFooter>

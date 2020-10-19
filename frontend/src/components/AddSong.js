@@ -3,26 +3,19 @@ import React, { useState } from 'react';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
 const AddSong = () => {
-	const [song, setSong] = useState({ name: '', songFile: null });
+	const initialState = { name: '', description: '', songFile: null };
+	const [song, setSong] = useState(initialState);
 	const [submitted, setSubmitted] = useState(false);
 	const [submittedResponse, setSubmittedResponse] = useState('');
 	const { songMethod } = useMusicPlayer();
 
-	const addSong = songMethod('addSong');
-
-	const handleInputChange = event => {
-		const {
-			name,
-			value
-		} = event.target;
-
-		setSong({ ...song, [name]: value });
-	};
+	const handleInputChange = e =>
+		setSong({ ...song, [e.target.name]: e.target.value });
 
 	const handleFileChange = event => setSong({ ...song, songFile: event.target.files[0] });
 
 	const newSong = () => {
-		setSong({ name: '', songFile: null });
+		setSong(initialState);
 		setSubmitted(false);
 	};
 
@@ -30,10 +23,15 @@ const AddSong = () => {
 		const formData = new FormData();
 
 		formData.append('name', song.name);
+		formData.append('description', song.description);
 		formData.append('songFile', song.songFile);
 
-		const message = await addSong(formData);
-		setSong({ name: '', songFile: null });
+		for (var pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1]);
+		}
+
+		const message = await songMethod('addSong')(formData);
+		setSong(initialState);
 		setSubmittedResponse(message.response.statusText);
 		setSubmitted(true);
 	};
@@ -50,7 +48,7 @@ const AddSong = () => {
 			) : (
 				<div>
 					<div className='form-group'>
-						<label htmlFor='title'>Name</label>
+						<label htmlFor='name'>Name</label>
 						<input
 							type='text'
 							className='form-control'
@@ -58,6 +56,18 @@ const AddSong = () => {
 							name='name'
 							required
 							value={song.name}
+							onChange={handleInputChange}
+						/>
+					</div>
+
+					<div className='form-group'>
+						<label htmlFor='description'>Description</label>
+						<input
+							type='text'
+							className='form-control'
+							id='description'
+							name='description'
+							value={song.description}
 							onChange={handleInputChange}
 						/>
 					</div>

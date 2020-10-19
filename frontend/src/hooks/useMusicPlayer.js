@@ -39,6 +39,9 @@ const useMusicPlayer = () => {
 	const songMethod = method => async data => {
 		try {
 			const res = await SongDataService[method](data);
+
+			if (method === 'updateSong') console.log('songmethod', res);
+
 			state.retrieveSongs();
 			return ({
 				response: { statusText: `${res.data.name || ''} ${method.replace('Song', '')} ran correctly correctly` },
