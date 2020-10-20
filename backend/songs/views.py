@@ -32,6 +32,21 @@ def get_single_bensounds(request, slug):
     response = HttpResponse(json_properties, content_type="application/json")
     return response
 
+def get_bensounds_stream(request, slug):
+    title = stringcase.titlecase(slug)
+    song = api.get_song_by_title(title)
+    stream = song.get_song_stream()
+    response = HttpResponse(stream)
+    return response
+
+def get_bensounds_download(request, slug):
+    title = stringcase.titlecase(slug)
+    song = api.get_song_by_title(title)
+    mp3_response = song.download_mp3()
+    json_mp3_response = json.dumps({"message": mp3_response})
+    response = HttpResponse(mp3_response)
+    return response
+
 
 class SongView(viewsets.ModelViewSet):
     serializer_class = SongSerializer

@@ -12,7 +12,7 @@ const MusicPlayerProvider = props => {
 				const response = await SongDataService.getAll();
 				setState(state => ({ ...state, tracks: response.data, retrieveError: '' }));
 			} catch (e) {
-				setState(state => ({ ...state, retrieveError: e.response.statusText }));
+				setState(state => ({ ...state, retrieveError: e.message || e.response.statusText }));
 			}
 		})();
 	}, []);

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
 	return (
-		<div className="container">
-			<header className="jumbotron">
+		<div className='container'>
+			<header className='jumbotron'>
 				<h3>
 					<strong>Home</strong>
 				</h3>

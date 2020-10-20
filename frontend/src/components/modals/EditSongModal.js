@@ -39,7 +39,7 @@ const EditSongModal = () => {
 				setSubmittedResponse('Failed to load song, please try again');
 			}
 		})();
-	}, [idUnderRevision]);
+	}, [idUnderRevision]); // eslint-disable-line
 
 	const methodSong = method => async () => {
 		setHasLoaded(false);
@@ -53,7 +53,7 @@ const EditSongModal = () => {
 		<>
 			<ModalHeader toggle={() => toggleModal(null)()}> Edit Song </ModalHeader>
 			{submittedResponse && hasLoaded ? <h4>{submittedResponse}</h4>
-				: !hasLoaded ? <Spinner animation="border" />  :
+				: !hasLoaded ? <Spinner animation='border' />  :
 					<>
 						<ModalBody>
 							<Form>

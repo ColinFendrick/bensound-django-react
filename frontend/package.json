@@ -11,8 +11,6 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
-    "eslint": "^6.6.0",
-    "eslint-plugin-flowtype": "^5.2.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
@@ -41,6 +39,10 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "stylelint": "^13.7.2",
     "stylelint-config-standard": "^20.0.0"
   }

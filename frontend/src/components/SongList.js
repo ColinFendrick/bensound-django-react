@@ -23,7 +23,7 @@ const SongList = () => {
 				updateSongs(res.data.songList);
 			} catch (e) {
 				setHasLoaded(true);
-				setSubmitted(e.response.statusText);
+				setSubmitted(e.message);
 			}
 		})();
 	}, []);
@@ -38,14 +38,14 @@ const SongList = () => {
 			toggleModal(<BensoundDetailsModal song={res.data.properties} />)();
 		} catch (e) {
 			setHasLoaded(true);
-			setSubmitted(e.response.statusText);
+			setSubmitted(e.message || e.response.statusText);
 		}
 	};
 
 	return (
 		<div>
 			{!hasLoaded ? (
-				<Spinner animation="border" />
+				<Spinner animation='border' />
 			) : (
 				<div>
 					<h4>{submitted || ''}</h4>
