@@ -12,6 +12,5 @@ urlpatterns = [
     path('media/<path:path>', views.serve_song),
     path('bensounds/', views.get_all_bensounds),
     path('bensounds/<slug:slug>', views.get_single_bensounds),
-    path('bensounds/stream/<slug:slug>', views.get_bensounds_stream),
     path('bensounds/download/<slug:slug>', views.get_bensounds_download)
 ]

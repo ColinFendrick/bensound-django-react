@@ -32,13 +32,6 @@ def get_single_bensounds(request, slug):
     response = HttpResponse(json_properties, content_type="application/json")
     return response
 
-def get_bensounds_stream(request, slug):
-    title = stringcase.titlecase(slug)
-    song = api.get_song_by_title(title)
-    stream = song.get_song_stream()
-    response = HttpResponse(stream)
-    return response
-
 def get_bensounds_download(request, slug):
     title = stringcase.titlecase(slug)
     song = api.get_song_by_title(title)

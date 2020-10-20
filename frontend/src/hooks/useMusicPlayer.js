@@ -18,22 +18,13 @@ const useMusicPlayer = () => {
 		}
 	};
 
-	const streamTrack = async title => {
-		state.audioPlayer = new Audio();
-		try {
-			const stream = await BenSoundDataService.stream(title);
-			console.log(stream);
-
-			const blob = new Blob([stream.data], { type: 'audio/mp3' });
-			const url = window.URL.createObjectURL(blob);
-			state.audioPlayer.src = url;
-			console.log('error here', state.audioPlayer);
+	const streamTrack = url => {
+		if (state.currentTrackIndex === -999) {
+			togglePlay();
+		} else {
+			state.audioPlayer = new Audio(url);
 			state.audioPlayer.play();
-
-			setState({ ...state, currentTrackIndex: null, isPlaying: true });
-			return stream;
-		} catch (e) {
-			return e;
+			setState({ ...state, isPlaying: true, currentTrackIndex: -999 });
 		}
 	};
 

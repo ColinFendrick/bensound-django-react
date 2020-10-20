@@ -35,15 +35,11 @@ const BensoundDetailsModal = ({ song }) => {
 		setSubmittedResponse(res.data.message || res.data);
 	};
 
-	const stream = async title => {
-		const res = await streamTrack(title);
-		setSubmittedResponse(res.data.message || res.data);
-	};
-
 	const goBack = () => {
 		setHasLoaded(true);
 		setSubmittedResponse('');
 	};
+
 
 	// eslint-disable-next-line
 	useEffect(() => modifyContextState(initialContextState), []);
@@ -85,6 +81,8 @@ const BensoundDetailsModal = ({ song }) => {
 								<small>{song['length']}</small>
 							</p>
 
+							<img src={song.url_image} alt={`${song.title} album cover`} />
+
 							{song.for_download && (
 								<div className='box controls has-background-grey-dark'>
 									<div className='current-track has-text-light'>
@@ -92,10 +90,11 @@ const BensoundDetailsModal = ({ song }) => {
 											<p>{song.title}</p>
 										</div>
 									</div>
+
 									<div>
 										<button
 											className='button has-text-light has-background-grey-dark'
-											onClick={() => stream(song.title)}
+											onClick={() => streamTrack(song.url_mp3)}
 										>
 											{isPlaying ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
 										</button>
