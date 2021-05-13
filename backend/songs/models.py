@@ -1,6 +1,7 @@
 from django.db import models
 
 class Song(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
     songFile = models.FileField(upload_to='media/')
     created_at = models.DateTimeField(auto_now_add=True)

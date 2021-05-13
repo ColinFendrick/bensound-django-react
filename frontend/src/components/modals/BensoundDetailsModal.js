@@ -29,10 +29,14 @@ const BensoundDetailsModal = ({ song }) => {
 	} = useMusicPlayer();
 
 	const handleDownload = async title => {
-		setHasLoaded(false);
-		const res = await downloadTrack(title);
-		setHasLoaded(true);
-		setSubmittedResponse(res.data.message || res.data);
+		try {
+			setHasLoaded(false);
+			const res = await downloadTrack(title);
+			setHasLoaded(true);
+			setSubmittedResponse(res.data.message || res.data);	
+		} catch (error) {
+			console.log(error)
+		}
 	};
 
 	const goBack = () => {

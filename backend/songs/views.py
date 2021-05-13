@@ -35,6 +35,7 @@ def get_single_bensounds(request, slug):
 def get_bensounds_download(request, slug):
     title = stringcase.titlecase(slug)
     song = api.get_song_by_title(title)
+    print(song)
     mp3_response = song.download_mp3()
     json_mp3_response = json.dumps({"message": mp3_response})
     response = HttpResponse(mp3_response)
